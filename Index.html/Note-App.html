@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app" class="container mt-5">
+        <h1 class="text-center">Notes App</h1>
+        <div class="form-group">
+            <input type="text" v-model="newNote" placeholder="Enter your text here" class="form-control">
+        </div>
+        <button class="btn btn-primary mb-3" @click="addNote">Add to your notes</button>
+        <ul class="list-group">
+            <li v-for="(note, index) in notes" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
+                {{ note }}
+                <button class="btn btn-danger btn-sm" @click="deleteNote(index)">Delete a note</button>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newNote: '',
+                notes: []
+            },
+            methods: {
+                addNote() {
+                    if (this.newNote.trim() !== '') {
+                        this.notes.push(this.newNote);
+                        this.newNote = '';
+                    }
+                },
+                deleteNote(index) {
+                    this.notes.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
